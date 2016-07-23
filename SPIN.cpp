@@ -67,7 +67,7 @@ bool SPIN0Class::pinIsSCK(uint8_t pin)
 // return true if "pin" has special chip select capability
 uint8_t SPIN0Class::pinIsChipSelect(uint8_t pin) {return SPI.pinIsChipSelect(pin);}
 bool SPIN0Class::pinIsChipSelect(uint8_t pin1, uint8_t pin2) {return SPI.pinIsChipSelect(pin1, pin2);}
-uint8_t SPIN0Class::setCS(uint8_t pin) {Serial.printf("Set CS:%d\n\r", pin); return SPI.setCS(pin);}
+uint8_t SPIN0Class::setCS(uint8_t pin) {return SPI.setCS(pin);}
 
 
 // Helper functions for managing queue
@@ -157,8 +157,9 @@ bool SPIN1Class::pinIsMOSI(uint8_t pin)
     switch (pin) {
     case 0: 
     case 21:
-    case 60:
+    case 61:
     case 59:
+        //Serial.printf("Valid MOSI %d\n\r", pin);
         return true;
     }
     return false;
@@ -170,8 +171,9 @@ bool SPIN1Class::pinIsMISO(uint8_t pin)
     switch (pin) {
     case 1: 
     case 5: 
-    case 60:
+    case 61:
     case 59:
+        //Serial.printf("Valid MISO %d\n\r", pin);
         return true;
     }
     return false;
@@ -183,6 +185,7 @@ bool SPIN1Class::pinIsSCK(uint8_t pin)
     case 20:
     case 32:
     case 60: 
+        //Serial.printf("Valid SCK %d\n\r", pin);
         return true;
     }
     return false;
