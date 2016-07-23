@@ -1,0 +1,29 @@
+#######################################
+# Syntax Coloring Map SPIN
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SPIN	KEYWORD1
+SPIN1	KEYWORD1
+SPIN2	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin	KEYWORD2
+end	KEYWORD2
+transfer	KEYWORD2
+setBitOrder	KEYWORD2
+setDataMode	KEYWORD2
+setClockDivider	KEYWORD2
+setMOSI	KEYWORD2
+setMISO	KEYWORD2
+setSCK	KEYWORD2
+usingInterrupt	KEYWORD2
+beginTransaction	KEYWORD2
+endTransaction	KEYWORD2
+SPISettings	KEYWORD2
+
