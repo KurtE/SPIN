@@ -48,18 +48,27 @@ void SPIN0Class::setSCK(uint8_t pin) {SPI.setSCK(pin);}
 bool SPIN0Class::pinIsMOSI(uint8_t pin)
 {
     if ((pin == 11) || (pin == 7)) return true;
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
+    if (pin == 28) return true;
+#endif    
     return false;
 }
 
 bool SPIN0Class::pinIsMISO(uint8_t pin)
 {
     if ((pin == 12) || (pin == 8)) return true;
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
+    if (pin == 39) return true;
+#endif    
     return false;
 }
 
 bool SPIN0Class::pinIsSCK(uint8_t pin)
 {
     if ((pin == 13) || (pin == 14)) return true;
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
+    if (pin == 27) return true;
+#endif    
     return false;
 }
 
