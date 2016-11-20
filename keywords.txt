@@ -5,6 +5,7 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
+SPINClass	KEYWORD1
 
 SPIN	KEYWORD1
 SPIN1	KEYWORD1
@@ -26,4 +27,15 @@ usingInterrupt	KEYWORD2
 beginTransaction	KEYWORD2
 endTransaction	KEYWORD2
 SPISettings	KEYWORD2
+
+pinIsMOSI	KEYWORD2
+pinIsMISO	KEYWORD2
+pinIsSCK	KEYWORD2
+pinIsChipSelect	KEYWORD2
+setCS	KEYWORD2
+kinetisk_spi	KEYWORD2
+sizeFIFO	KEYWORD2
+waitFifoNotFull	KEYWORD2
+waitFifoEmpty	KEYWORD2
+waitTransmitComplete	KEYWORD2
 
