@@ -166,8 +166,10 @@ bool SPIN1Class::pinIsMOSI(uint8_t pin)
     switch (pin) {
     case 0: 
     case 21:
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
     case 61:
     case 59:
+#endif
         //Serial.printf("Valid MOSI %d\n\r", pin);
         return true;
     }
@@ -180,8 +182,10 @@ bool SPIN1Class::pinIsMISO(uint8_t pin)
     switch (pin) {
     case 1: 
     case 5: 
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
     case 61:
     case 59:
+#endif
         //Serial.printf("Valid MISO %d\n\r", pin);
         return true;
     }
@@ -192,8 +196,10 @@ bool SPIN1Class::pinIsSCK(uint8_t pin)
 {
     switch (pin) {
     case 20:
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
     case 32:
     case 60: 
+#endif
         //Serial.printf("Valid SCK %d\n\r", pin);
         return true;
     }
@@ -256,7 +262,7 @@ SPIN1Class SPIN1;
 
 #if defined(__MK64FX512__) || defined(__MK66FX1M0__)
 /**********************************************************/
-/*   SPIN2                                               */
+/*   SPIN2                                                */
 /**********************************************************/
 
 void SPIN2Class::begin() {SPI2.begin(); }

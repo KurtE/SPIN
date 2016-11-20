@@ -12,9 +12,9 @@ void setup() {
 #elif defined(__MK20DX256__)
   Serial.print("Teensy 3.1/3.2 - ");
 #elif defined(__MKL26Z64__)
-  Serial.print("Teensy 3.5 - ");
+  Serial.print("Teensy LC - ");
 #elif defined(__MK64FX512__)
-  Serial.print("Teensy 3.0 - ");
+  Serial.print("Teensy 3.5 - ");
 #elif defined(__MK66FX1M0__)
   Serial.print("Teensy 3.6 - ");
 #else
