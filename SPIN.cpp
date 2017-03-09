@@ -122,6 +122,15 @@ void SPIN0Class::waitTransmitComplete(uint32_t mcr) {
         tmp = KINETISK_SPI0.POPR;
     }
 }
+
+uint8_t SPIN0Class::dmaTXEvent(void) {
+    return DMAMUX_SOURCE_SPI0_TX;
+
+}
+uint8_t SPIN0Class::dmaRXEvent(void) {
+    return DMAMUX_SOURCE_SPI0_RX;
+}
+
 #endif
 
 
@@ -253,6 +262,13 @@ void SPIN1Class::waitTransmitComplete(uint32_t mcr)  {
         tmp = KINETISK_SPI1.POPR;
     }
 }
+uint8_t SPIN1Class::dmaTXEvent(void) {
+    return DMAMUX_SOURCE_SPI1_TX;
+
+}
+uint8_t SPIN1Class::dmaRXEvent(void) {
+    return DMAMUX_SOURCE_SPI1_RX;
+}
 #endif
 
 
@@ -371,6 +387,23 @@ void SPIN2Class::waitTransmitComplete(uint32_t mcr)  {
         tmp = KINETISK_SPI2.POPR;
     }
 }
+
+uint8_t SPIN2Class::dmaTXEvent(void) {
+#ifdef DMAMUX_SOURCE_SPI2_TX
+    return DMAMUX_SOURCE_SPI2_TX;
+#else
+    return (uint8_t)-1;
+#endif
+}
+
+uint8_t SPIN2Class::dmaRXEvent(void) {
+#ifdef DMAMUX_SOURCE_SPI2_RX
+    return DMAMUX_SOURCE_SPI2_RX;
+#else
+    return (uint8_t)-1;
+#endif
+}
+
 #endif
 
 

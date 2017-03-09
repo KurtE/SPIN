@@ -71,6 +71,10 @@ public:
     virtual void waitFifoEmpty(void) = 0;
     virtual void waitTransmitComplete(void)  = 0;
     virtual void waitTransmitComplete(uint32_t mcr) = 0;
+
+    // return DMA Channel information 
+    virtual uint8_t dmaTXEvent(void) = 0;
+    virtual uint8_t dmaRXEvent(void) = 0;
 #endif
 };
 
@@ -125,6 +129,8 @@ public:
     virtual void waitFifoEmpty(void);
     virtual void waitTransmitComplete(void);
     virtual void waitTransmitComplete(uint32_t mcr);
+    virtual uint8_t dmaTXEvent(void);
+    virtual uint8_t dmaRXEvent(void);
 #endif
 };
 
@@ -182,6 +188,8 @@ public:
     virtual void waitFifoEmpty(void);
     virtual void waitTransmitComplete(void);
     virtual void waitTransmitComplete(uint32_t mcr);
+    virtual uint8_t dmaTXEvent(void);
+    virtual uint8_t dmaRXEvent(void);
 #endif
 };
 
@@ -242,6 +250,8 @@ public:
     virtual void waitFifoEmpty(void);
     virtual void waitTransmitComplete(void);
     virtual void waitTransmitComplete(uint32_t mcr);
+    virtual uint8_t dmaTXEvent(void);
+    virtual uint8_t dmaRXEvent(void);
 #endif
 };
 
