@@ -132,6 +132,11 @@ uint8_t SPIN0Class::dmaRXEvent(void) {
 }
 
 #endif
+#if defined(KINETISL)
+KINETISL_SPI_t *SPIN0Class::kinetisl_spi (void) {
+    return &KINETISL_SPI0;
+}
+#endif    
 
 
 SPIN0Class SPIN;
@@ -270,6 +275,12 @@ uint8_t SPIN1Class::dmaRXEvent(void) {
     return DMAMUX_SOURCE_SPI1_RX;
 }
 #endif
+
+#if defined(KINETISL)
+KINETISL_SPI_t *SPIN1Class::kinetisl_spi (void) {
+    return &KINETISL_SPI1;
+}
+#endif    
 
 
 SPIN1Class SPIN1;

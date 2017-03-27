@@ -76,6 +76,9 @@ public:
     virtual uint8_t dmaTXEvent(void) = 0;
     virtual uint8_t dmaRXEvent(void) = 0;
 #endif
+#if defined(KINETISL)
+    virtual KINETISL_SPI_t *kinetisl_spi (void);
+#endif    
 };
 
 /**********************************************************/
@@ -132,6 +135,9 @@ public:
     virtual uint8_t dmaTXEvent(void);
     virtual uint8_t dmaRXEvent(void);
 #endif
+#if defined(KINETISL)
+    virtual KINETISL_SPI_t *kinetisl_spi (void);
+#endif    
 };
 
 
@@ -191,6 +197,9 @@ public:
     virtual uint8_t dmaTXEvent(void);
     virtual uint8_t dmaRXEvent(void);
 #endif
+#if defined(KINETISL)
+    virtual KINETISL_SPI_t *kinetisl_spi (void);
+#endif    
 };
 
 extern SPIN1Class SPIN1;
