@@ -50,7 +50,42 @@ void SPINClass::waitTransmitComplete(uint32_t mcr) {
 
 
 SPINClass SPIN((uintptr_t)&SPI, (uintptr_t)&KINETISK_SPI0, 4, DMAMUX_SOURCE_SPI0_TX, DMAMUX_SOURCE_SPI0_RX);
+
+#elif defined(__IMXRT1052__) || defined(__IMXRT1062__)  // Teensy 4.x
+void SPINClass::waitFifoNotFull(void) {
+    uint32_t tmp __attribute__((unused));
+    do {
+        if ((port().RSR & LPSPI_RSR_RXEMPTY) == 0)  {
+            tmp = port().RDR;  // Read any pending RX bytes in
+        }
+    } while ((port().SR & LPSPI_SR_TDF) == 0) ;
+}
+void SPINClass::waitFifoEmpty(void) {
+    uint32_t tmp __attribute__((unused));
+    do {
+        if ((port().RSR & LPSPI_RSR_RXEMPTY) == 0)  {
+            tmp = port().RDR;  // Read any pending RX bytes in
+        }
+    } while ((port().SR & LPSPI_SR_TCF) == 0) ;
+}
+void SPINClass::waitTransmitComplete(void)  {
+    uint32_t tmp __attribute__((unused));
+    do {
+        if ((port().RSR & LPSPI_RSR_RXEMPTY) == 0)  {
+            tmp = port().RDR;  // Read any pending RX bytes in
+        }
+    } while ((port().SR & LPSPI_SR_MBF) == 0) ;
+    port().CR = LPSPI_CR_MEN | LPSPI_CR_RRF;       // Clear RX FIFO
+}
+void SPINClass::waitTransmitComplete(uint32_t mcr) {
+    // BUGBUG:: figure out if needed...
+    waitTransmitComplete();
+}
+
+
+SPINClass SPIN((uintptr_t)&SPI, (uintptr_t)&IMXRT_LPSPI4_S, 16, DMAMUX_SOURCE_LPSPI4_TX, DMAMUX_SOURCE_LPSPI4_RX);
 #else
+// Teensy LC
 SPINClass SPIN((uintptr_t)&SPI, (uintptr_t)&KINETISL_SPI0);
 #endif
 
@@ -58,8 +93,8 @@ SPINClass SPIN((uintptr_t)&SPI, (uintptr_t)&KINETISL_SPI0);
 #if defined(__MK64FX512__) 
 // Teensy 3.5
 // Warning T3.5 has only one DMAMUX source for SPI1 and SPI2 which can be RX or TX 
-SPINClass SPIN1((uintptr_t)&SPI1, (uintptr_t)&KINETISK_SPI1, 1, DMAMUX_SOURCE_SPI1, DMAMUX_SOURCE_SPI1);
-SPINClass SPIN2((uintptr_t)&SPI2, (uintptr_t)&KINETISK_SPI2, 1, DMAMUX_SOURCE_SPI2, DMAMUX_SOURCE_SPI2);
+SPINClass SPIN1((uintptr_t)&SPI1, (uintptr_t)&KINETISK_SPI1, 1, 0, DMAMUX_SOURCE_SPI1);
+SPINClass SPIN2((uintptr_t)&SPI2, (uintptr_t)&KINETISK_SPI2, 1, 0, DMAMUX_SOURCE_SPI2);
 
 #elif defined(__MK66FX1M0__) 
 // Teensy 3.6
