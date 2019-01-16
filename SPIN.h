@@ -91,6 +91,7 @@ constexpr SPINClass(uintptr_t spiX, uintptr_t myport, uint8_t fifo_size, uint8_t
     inline IMXRT_LPSPI_t & port() { return *(IMXRT_LPSPI_t *)_port_addr; }
 
     inline uint8_t sizeFIFO() {return _fifo_size; }
+    uint8_t pending_rx_count = 0; // hack ...
     void waitFifoNotFull(void);
     void waitFifoEmpty(void);
     void waitTransmitComplete(void) ;
