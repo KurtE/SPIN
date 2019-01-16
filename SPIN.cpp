@@ -70,13 +70,18 @@ void SPINClass::waitFifoEmpty(void) {
 }
 void SPINClass::waitTransmitComplete(void)  {
     uint32_t tmp __attribute__((unused));
+//    digitalWriteFast(2, HIGH);
     do {
         if ((port().RSR & LPSPI_RSR_RXEMPTY) == 0)  {
             tmp = port().RDR;  // Read any pending RX bytes in
         }
     } while ((port().SR & LPSPI_SR_MBF) == 0) ;
+    uint16_t loop_cnts_timeout = 0xff;   // don't check more than so many times
+    while (--loop_cnts_timeout && ((port().SR & LPSPI_SR_FCF) == 0) ) ;
     port().CR = LPSPI_CR_MEN | LPSPI_CR_RRF;       // Clear RX FIFO
+//    digitalWriteFast(2, LOW);
 }
+
 void SPINClass::waitTransmitComplete(uint32_t mcr) {
     // BUGBUG:: figure out if needed...
     waitTransmitComplete();
