@@ -25,7 +25,7 @@ class SPINClass {
 public:
     // Initialize the SPI library
     inline void begin() {spi().begin(); }
-    inline void usingInterrupt(uint8_t n) {spi().usingInterrupt(n); }
+    inline void usingInterrupt(uint8_t n) {spi().usingInterrupt((IRQ_NUMBER_t)n); }
     inline void usingInterrupt(IRQ_NUMBER_t interruptName) {spi().usingInterrupt(interruptName); }
     inline void notUsingInterrupt(IRQ_NUMBER_t interruptName) {spi().notUsingInterrupt(interruptName); }
 
@@ -81,19 +81,40 @@ constexpr SPINClass(uintptr_t spiX, uintptr_t myport, uint8_t fifo_size, uint8_t
     inline uint8_t dmaTXEvent(void) {return _dma_tx_event;}
     inline uint8_t dmaRXEvent(void) {return _dma_rx_event;}
     inline SPIClass & spi() { return *(SPIClass *)_spi;}
-#endif
-#if defined(KINETISL)
+#elif defined(__IMXRT1052__) || defined(__IMXRT1062__)
+
+constexpr SPINClass(uintptr_t spiX, uintptr_t myport, uint8_t fifo_size, uint8_t dma_tx_event, uint8_t dma_rx_event)
+        : _spi(spiX), _port_addr(myport), _fifo_size(fifo_size), 
+        _dma_tx_event(dma_tx_event), _dma_rx_event(dma_rx_event) {
+    }
+
+    inline IMXRT_LPSPI_t & port() { return *(IMXRT_LPSPI_t *)_port_addr; }
+
+    inline uint8_t sizeFIFO() {return _fifo_size; }
+    uint8_t pending_rx_count = 0; // hack ...
+    void waitFifoNotFull(void);
+    void waitFifoEmpty(void);
+    void waitTransmitComplete(void) ;
+    void waitTransmitComplete(uint32_t mcr);
+
+    // return DMA Channel information 
+    inline uint8_t dmaTXEvent(void) {return _dma_tx_event;}
+    inline uint8_t dmaRXEvent(void) {return _dma_rx_event;}
+    inline SPIClass & spi() { return *(SPIClass *)_spi;}
+#elif defined(KINETISL)
 constexpr SPINClass(uintptr_t spiX, uintptr_t myport)
         : _spi(spiX), _port_addr(myport) {
     }
 
     inline KINETISL_SPI_t & port() { return *(KINETISL_SPI_t *)_port_addr; }
     inline SPIClass & spi() { return *(SPIClass *)_spi;}
-#endif    
+#else
+#error "SPIN only works with T3.x or T4.x and TLC boards  Please select it in Tools > Boards"
+#endif  
 
 private:
     uintptr_t _spi;
-#if defined(KINETISK)
+#if defined(KINETISK) || defined(__IMXRT1052__) || defined(__IMXRT1062__)
 
     uintptr_t _port_addr;
     uint8_t _fifo_size;
