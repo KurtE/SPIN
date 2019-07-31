@@ -128,13 +128,13 @@ private:
 
 extern SPINClass SPIN;
 
-#if defined(__MK64FX512__) || defined(__MK66FX1M0__) || defined(KINETISL)
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__) || defined(KINETISL) || defined(__IMXRT1052__) || defined(__IMXRT1062__)
 #define SPIN1_OBJECT_CREATED
 extern SPINClass SPIN1;
 #endif
 
 
-#if defined(__MK64FX512__) || defined(__MK66FX1M0__)
+#if defined(__MK64FX512__) || defined(__MK66FX1M0__) || defined(__IMXRT1052__) || defined(__IMXRT1062__)
 #define SPIN2_OBJECT_CREATED
 extern SPINClass SPIN2;
 #endif
